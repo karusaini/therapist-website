@@ -3,8 +3,16 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 
-// Dummy services array
-const services = [
+// Define the service type
+type Service = {
+  slug: string;
+  title: string;
+  description: string;
+  image: string;
+};
+
+// Dummy service data
+const services: Service[] = [
   {
     slug: "anxiety",
     title: "Anxiety & Stress Management",
@@ -28,36 +36,30 @@ const services = [
   },
 ];
 
-// ✅ Optional: Helps prevent build errors
-export async function generateStaticParams() {
+// Optional static generation of metadata
+export function generateStaticParams() {
   return services.map((service) => ({
     slug: service.slug,
   }));
 }
 
-// ✅ For metadata generation (optional)
-export async function generateMetadata({
+// Metadata (optional SEO improvement)
+export function generateMetadata({
   params,
 }: {
   params: { slug: string };
-}): Promise<Metadata> {
+}): Metadata {
   const service = services.find((s) => s.slug === params.slug);
   return {
     title: service
       ? `${service.title} | Dr. Serena Blake`
       : "Service Not Found",
-    description: service?.description ?? "Explore our therapy services.",
+    description: service?.description || "Explore our therapy services.",
   };
 }
 
-// ✅ Main Page — NOT async anymore ✅
-type PageProps = {
-  params: {
-    slug: string;
-  };
-};
-
-export default function ServicePage({ params }: PageProps) {
+// ✅ Regular (NOT async) component — this was causing your error
+export default function ServicePage({ params }: { params: { slug: string } }) {
   const service = services.find((s) => s.slug === params.slug);
 
   if (!service) return notFound();
@@ -65,6 +67,7 @@ export default function ServicePage({ params }: PageProps) {
   return (
     <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white min-h-screen flex items-center justify-center">
       <div className="max-w-2xl w-full text-center">
+        {/* Breadcrumb */}
         <nav className="text-sm text-gray-600 mb-6">
           <Link href="/" className="hover:underline">
             Home
@@ -76,6 +79,7 @@ export default function ServicePage({ params }: PageProps) {
           / <span className="text-gray-800 font-medium">{service.title}</span>
         </nav>
 
+        {/* Image */}
         <div className="relative w-full h-64 sm:h-96 rounded-2xl overflow-hidden mx-auto mb-8">
           <Image
             src={service.image}
@@ -85,6 +89,7 @@ export default function ServicePage({ params }: PageProps) {
           />
         </div>
 
+        {/* Title & Description */}
         <h1 className="text-3xl sm:text-4xl font-serif font-bold text-gray-900 mb-4">
           {service.title}
         </h1>
@@ -92,6 +97,7 @@ export default function ServicePage({ params }: PageProps) {
           {service.description}
         </p>
 
+        {/* Back Button */}
         <Link href="/#services">
           <button className="px-6 py-2 rounded-full text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 transition-colors shadow-md">
             ← Back to Services
