@@ -3,16 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 
-// Define the service type
-type Service = {
-  slug: string;
-  title: string;
-  description: string;
-  image: string;
-};
-
-// Dummy service data
-const services: Service[] = [
+// Dummy data
+const services = [
   {
     slug: "anxiety",
     title: "Anxiety & Stress Management",
@@ -36,19 +28,11 @@ const services: Service[] = [
   },
 ];
 
-// Optional static generation of metadata
-export function generateStaticParams() {
-  return services.map((service) => ({
-    slug: service.slug,
-  }));
-}
-
-// Metadata (optional SEO improvement)
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
   params: { slug: string };
-}): Metadata {
+}): Promise<Metadata> {
   const service = services.find((s) => s.slug === params.slug);
   return {
     title: service
@@ -58,8 +42,13 @@ export function generateMetadata({
   };
 }
 
-// ✅ Regular (NOT async) component — this was causing your error
-export default function ServicePage({ params }: { params: { slug: string } }) {
+interface ServicePageProps {
+  params: {
+    slug: string;
+  };
+}
+
+export default async function ServicePage({ params }: ServicePageProps) {
   const service = services.find((s) => s.slug === params.slug);
 
   if (!service) return notFound();
@@ -67,7 +56,6 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
   return (
     <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white min-h-screen flex items-center justify-center">
       <div className="max-w-2xl w-full text-center">
-        {/* Breadcrumb */}
         <nav className="text-sm text-gray-600 mb-6">
           <Link href="/" className="hover:underline">
             Home
@@ -79,7 +67,6 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
           / <span className="text-gray-800 font-medium">{service.title}</span>
         </nav>
 
-        {/* Image */}
         <div className="relative w-full h-64 sm:h-96 rounded-2xl overflow-hidden mx-auto mb-8">
           <Image
             src={service.image}
@@ -89,7 +76,6 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
           />
         </div>
 
-        {/* Title & Description */}
         <h1 className="text-3xl sm:text-4xl font-serif font-bold text-gray-900 mb-4">
           {service.title}
         </h1>
@@ -97,7 +83,6 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
           {service.description}
         </p>
 
-        {/* Back Button */}
         <Link href="/#services">
           <button className="px-6 py-2 rounded-full text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 transition-colors shadow-md">
             ← Back to Services
