@@ -1,40 +1,45 @@
-// app/services/[slug]/page.tsx
-
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 
-const services = [
+// Define types
+type Service = {
+  slug: string;
+  title: string;
+  description: string;
+  image: string;
+};
+
+// Dummy data
+const services: Service[] = [
   {
     slug: "anxiety",
     title: "Anxiety & Stress Management",
     description:
-      "Learn to manage overwhelming thoughts, reduce daily stress, and feel more in control.",
+      "Manage overwhelming thoughts, reduce stress, and feel more in control.",
     image: "/services/anxiety.jpg",
   },
   {
     slug: "relationship",
     title: "Relationship Counseling",
-    description:
-      "Improve communication, rebuild trust, and deepen your connections.",
+    description: "Improve communication and rebuild trust.",
     image: "/services/relationship.jpg",
   },
   {
     slug: "trauma",
     title: "Trauma Recovery",
-    description:
-      "Begin healing in a safe, supportive space using proven trauma-informed techniques.",
+    description: "Begin healing with trauma-informed support.",
     image: "/services/trauma.jpg",
   },
 ];
 
-// ✅ static params for build
+// ✅ Generate Static Params
 export async function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
 }
 
-// ✅ dynamic metadata
+// ✅ Metadata (SEO)
 export async function generateMetadata({
   params,
 }: {
@@ -45,13 +50,13 @@ export async function generateMetadata({
     title: service
       ? `${service.title} | Dr. Serena Blake`
       : "Service Not Found",
+    description: service?.description ?? "",
   };
 }
 
-// ✅ actual page
+// ✅ Page Component
 export default function ServicePage({ params }: { params: { slug: string } }) {
   const service = services.find((s) => s.slug === params.slug);
-
   if (!service) return notFound();
 
   return (
