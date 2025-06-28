@@ -1,33 +1,40 @@
+// app/services/[slug]/page.tsx
+
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 
-// Dummy data
 const services = [
   {
     slug: "anxiety",
     title: "Anxiety & Stress Management",
     description:
-      "Learn to manage overwhelming thoughts, reduce daily stress, and feel more in control. Dr. Blake uses mindfulness and evidence-based therapy to help you create calm and clarity.",
+      "Learn to manage overwhelming thoughts, reduce daily stress, and feel more in control.",
     image: "/services/anxiety.jpg",
   },
   {
     slug: "relationship",
     title: "Relationship Counseling",
     description:
-      "Improve communication, rebuild trust, and deepen your connections. Whether individual or couples therapy, Dr. Blake helps you navigate conflict with empathy and skill.",
+      "Improve communication, rebuild trust, and deepen your connections.",
     image: "/services/relationship.jpg",
   },
   {
     slug: "trauma",
     title: "Trauma Recovery",
     description:
-      "Begin healing in a safe, supportive space. Using proven trauma-informed techniques, Dr. Blake helps you process difficult experiences and move forward with strength.",
+      "Begin healing in a safe, supportive space using proven trauma-informed techniques.",
     image: "/services/trauma.jpg",
   },
 ];
 
+// ✅ static params for build
+export async function generateStaticParams() {
+  return services.map((s) => ({ slug: s.slug }));
+}
+
+// ✅ dynamic metadata
 export async function generateMetadata({
   params,
 }: {
@@ -38,17 +45,11 @@ export async function generateMetadata({
     title: service
       ? `${service.title} | Dr. Serena Blake`
       : "Service Not Found",
-    description: service?.description || "Explore our therapy services.",
   };
 }
 
-interface ServicePageProps {
-  params: {
-    slug: string;
-  };
-}
-
-export default async function ServicePage({ params }: ServicePageProps) {
+// ✅ actual page
+export default function ServicePage({ params }: { params: { slug: string } }) {
   const service = services.find((s) => s.slug === params.slug);
 
   if (!service) return notFound();
