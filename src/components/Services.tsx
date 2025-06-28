@@ -8,7 +8,6 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { HeartHandshake, BrainCog, ShieldCheck } from "lucide-react";
 
-// Optional Lottie animations
 import anxietyIcon from "@/animations/anxiety.json";
 import relationshipIcon from "@/animations/relationship.json";
 import traumaIcon from "@/animations/trauma.json";
@@ -66,7 +65,6 @@ export default function Services() {
                 transition={{ delay: i * 0.15, duration: 0.5 }}
               >
                 <Card className="rounded-2xl border-none shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col overflow-hidden hover:scale-[1.02]">
-                  {/* Background Image */}
                   <div className="relative w-full h-48">
                     <Image
                       src={service.image}
@@ -77,7 +75,6 @@ export default function Services() {
                     />
                   </div>
 
-                  {/* Icon Circle */}
                   <div className="w-20 h-20 mx-auto -mt-10 z-10 relative bg-white rounded-full shadow-lg flex items-center justify-center">
                     {service.icon ? (
                       <Lottie
@@ -90,7 +87,6 @@ export default function Services() {
                     )}
                   </div>
 
-                  {/* Text Content */}
                   <CardHeader className="text-center mt-4">
                     <CardTitle className="text-xl text-gray-900">
                       {service.title}

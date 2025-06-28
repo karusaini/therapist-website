@@ -1,10 +1,18 @@
+// app/services/[slug]/page.tsx
+
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 
-// Services data
-const services = [
+type Service = {
+  slug: string;
+  title: string;
+  description: string;
+  image: string;
+};
+
+const services: Service[] = [
   {
     slug: "anxiety",
     title: "Anxiety & Stress Management",
@@ -28,7 +36,6 @@ const services = [
   },
 ];
 
-// ✅ Fix type error by adding this
 export async function generateStaticParams() {
   return services.map((service) => ({
     slug: service.slug,
@@ -45,18 +52,11 @@ export async function generateMetadata({
     title: service
       ? `${service.title} | Dr. Serena Blake`
       : "Service Not Found",
-    description: service?.description,
+    description: service?.description || "Explore our therapy services.",
   };
 }
 
-// ✅ Fix here
-type Props = {
-  params: {
-    slug: string;
-  };
-};
-
-export default function ServicePage({ params }: Props) {
+export default function ServicePage({ params }: { params: { slug: string } }) {
   const service = services.find((s) => s.slug === params.slug);
   if (!service) return notFound();
 
@@ -91,7 +91,7 @@ export default function ServicePage({ params }: Props) {
         </p>
 
         <Link href="/#services">
-          <button className="px-6 py-2 rounded-full text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 transition-colors">
+          <button className="px-6 py-2 rounded-full text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 transition-colors shadow-md">
             ← Back to Services
           </button>
         </Link>
