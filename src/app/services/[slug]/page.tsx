@@ -1,9 +1,10 @@
+// src/app/services/[slug]/page.tsx
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 
-// Define types
+// Service type
 type Service = {
   slug: string;
   title: string;
@@ -11,35 +12,38 @@ type Service = {
   image: string;
 };
 
-// Dummy data
 const services: Service[] = [
   {
     slug: "anxiety",
     title: "Anxiety & Stress Management",
     description:
-      "Manage overwhelming thoughts, reduce stress, and feel more in control.",
+      "Learn to manage overwhelming thoughts, reduce daily stress, and feel more in control. Dr. Blake uses mindfulness and evidence-based therapy to help you create calm and clarity.",
     image: "/services/anxiety.jpg",
   },
   {
     slug: "relationship",
     title: "Relationship Counseling",
-    description: "Improve communication and rebuild trust.",
+    description:
+      "Improve communication, rebuild trust, and deepen your connections. Whether individual or couples therapy, Dr. Blake helps you navigate conflict with empathy and skill.",
     image: "/services/relationship.jpg",
   },
   {
     slug: "trauma",
     title: "Trauma Recovery",
-    description: "Begin healing with trauma-informed support.",
+    description:
+      "Begin healing in a safe, supportive space. Using proven trauma-informed techniques, Dr. Blake helps you process difficult experiences and move forward with strength.",
     image: "/services/trauma.jpg",
   },
 ];
 
-// ✅ Generate Static Params
+// ✅ Required for static generation
 export async function generateStaticParams() {
-  return services.map((s) => ({ slug: s.slug }));
+  return services.map((service) => ({
+    slug: service.slug,
+  }));
 }
 
-// ✅ Metadata (SEO)
+// ✅ SEO metadata
 export async function generateMetadata({
   params,
 }: {
@@ -47,15 +51,17 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const service = services.find((s) => s.slug === params.slug);
   return {
-    title: service
-      ? `${service.title} | Dr. Serena Blake`
-      : "Service Not Found",
-    description: service?.description ?? "",
+    title: service ? `${service.title} | Dr. Blake` : "Service Not Found",
+    description: service?.description ?? "Explore our therapy services.",
   };
 }
 
-// ✅ Page Component
-export default function ServicePage({ params }: { params: { slug: string } }) {
+// ✅ Async is okay here in app router
+export default async function ServicePage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const service = services.find((s) => s.slug === params.slug);
   if (!service) return notFound();
 
@@ -73,7 +79,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
           / <span className="text-gray-800 font-medium">{service.title}</span>
         </nav>
 
-        <div className="relative w-full h-64 sm:h-96 rounded-2xl overflow-hidden mx-auto mb-8">
+        <div className="relative w-full h-64 sm:h-96 rounded-2xl overflow-hidden shadow-lg mx-auto mb-8">
           <Image
             src={service.image}
             alt={service.title}
