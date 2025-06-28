@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 
-// Service data (could move this to a separate file if needed)
 const services = [
   {
     slug: "anxiety",
@@ -27,11 +27,12 @@ const services = [
   },
 ];
 
+// ✅ Generate Metadata for SEO
 export async function generateMetadata({
   params,
 }: {
   params: { slug: string };
-}) {
+}): Promise<Metadata> {
   const service = services.find((s) => s.slug === params.slug);
   return {
     title: service
@@ -40,19 +41,15 @@ export async function generateMetadata({
   };
 }
 
-export default async function ServicePage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+// ✅ Page Component
+export default function ServicePage({ params }: { params: { slug: string } }) {
   const service = services.find((s) => s.slug === params.slug);
-
   if (!service) return notFound();
 
   return (
     <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white min-h-screen flex items-center justify-center">
       <div className="max-w-2xl w-full text-center">
-        {/* Breadcrumbs */}
+        {/* Breadcrumb */}
         <nav className="text-sm text-gray-600 mb-6">
           <Link href="/" className="hover:underline">
             Home
@@ -64,27 +61,25 @@ export default async function ServicePage({
           / <span className="text-gray-800 font-medium">{service.title}</span>
         </nav>
 
-        {/* Service Image */}
+        {/* Image */}
         <div className="relative w-full h-64 sm:h-96 rounded-2xl overflow-hidden mx-auto mb-8">
           <Image
             src={service.image}
             alt={service.title}
             fill
-            className="object-cover rounded-2xl shadow-md"
+            className="object-cover"
           />
         </div>
 
-        {/* Title */}
+        {/* Title & Description */}
         <h1 className="text-3xl sm:text-4xl font-serif font-bold text-gray-900 mb-4">
           {service.title}
         </h1>
-
-        {/* Description */}
         <p className="text-lg text-gray-700 leading-relaxed mb-8">
           {service.description}
         </p>
 
-        {/* Back to Services Button */}
+        {/* Back Button */}
         <Link href="/#services">
           <button className="px-6 py-2 rounded-full text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 transition-colors shadow-md">
             ← Back to Services
