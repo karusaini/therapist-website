@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 
+// Dummy data
 const services = [
   {
     slug: "anxiety",
@@ -27,21 +28,22 @@ const services = [
   },
 ];
 
-// ✅ Generate Metadata for SEO
 export async function generateMetadata({
   params,
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
   const service = services.find((s) => s.slug === params.slug);
+
   return {
     title: service
       ? `${service.title} | Dr. Serena Blake`
       : "Service Not Found",
+    description: service?.description,
   };
 }
 
-// ✅ Page Component
+// ✅ SERVER COMPONENT — no 'use client' here!
 export default function ServicePage({ params }: { params: { slug: string } }) {
   const service = services.find((s) => s.slug === params.slug);
   if (!service) return notFound();
@@ -62,7 +64,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         </nav>
 
         {/* Image */}
-        <div className="relative w-full h-64 sm:h-96 rounded-2xl overflow-hidden mx-auto mb-8">
+        <div className="relative w-full h-64 sm:h-96 rounded-2xl overflow-hidden shadow-lg mx-auto mb-8">
           <Image
             src={service.image}
             alt={service.title}
