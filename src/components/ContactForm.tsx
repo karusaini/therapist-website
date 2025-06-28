@@ -1,4 +1,3 @@
-// components/ContactForm.tsx
 "use client";
 
 import { useForm } from "react-hook-form";
@@ -16,7 +15,9 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import { motion } from "framer-motion";
 
+// Schema
 const formSchema = z.object({
   name: z.string().min(2, "Name is required"),
   phone: z.string().min(10, "Phone is required"),
@@ -47,20 +48,33 @@ export default function ContactForm() {
   }
 
   return (
-    <section id="contact" className="bg-white py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-2xl mx-auto">
-        <h2 className="text-3xl font-serif font-bold text-center text-gray-900 mb-10">
+    <section
+      id="contact"
+      className="bg-gradient-to-b from-white to-gray-50 py-24 px-4 sm:px-6 lg:px-8"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        className="max-w-2xl mx-auto bg-white rounded-2xl shadow-md p-8 sm:p-10 border border-gray-200"
+      >
+        <h2 className="text-3xl sm:text-4xl font-serif font-bold text-center text-gray-900 mb-10">
           Book a Free Consultation
         </h2>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-6 text-gray-800"
+          >
+            {/* Name */}
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <Label>Name</Label>
+                  <Label className="text-base">Name</Label>
                   <FormControl>
                     <Input placeholder="Your full name" {...field} />
                   </FormControl>
@@ -69,12 +83,13 @@ export default function ContactForm() {
               )}
             />
 
+            {/* Phone */}
             <FormField
               control={form.control}
               name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <Label>Phone</Label>
+                  <Label className="text-base">Phone</Label>
                   <FormControl>
                     <Input placeholder="(123) 456-7890" {...field} />
                   </FormControl>
@@ -83,12 +98,13 @@ export default function ContactForm() {
               )}
             />
 
+            {/* Email */}
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <Label>Email</Label>
+                  <Label className="text-base">Email</Label>
                   <FormControl>
                     <Input placeholder="you@example.com" {...field} />
                   </FormControl>
@@ -97,15 +113,17 @@ export default function ContactForm() {
               )}
             />
 
+            {/* Message */}
             <FormField
               control={form.control}
               name="message"
               render={({ field }) => (
                 <FormItem>
-                  <Label>What brings you here?</Label>
+                  <Label className="text-base">What brings you here?</Label>
                   <FormControl>
                     <Textarea
                       placeholder="Briefly describe your concerns or goals"
+                      className="min-h-[100px]"
                       {...field}
                     />
                   </FormControl>
@@ -114,12 +132,15 @@ export default function ContactForm() {
               )}
             />
 
+            {/* Preferred Time */}
             <FormField
               control={form.control}
               name="time"
               render={({ field }) => (
                 <FormItem>
-                  <Label>Preferred time to reach you</Label>
+                  <Label className="text-base">
+                    Preferred time to reach you
+                  </Label>
                   <FormControl>
                     <Input
                       placeholder="e.g., afternoons after 2pm"
@@ -131,31 +152,39 @@ export default function ContactForm() {
               )}
             />
 
+            {/* Consent */}
             <FormField
               control={form.control}
               name="consent"
               render={({ field }) => (
-                <FormItem className="flex items-start space-x-2">
+                <FormItem className="flex items-start gap-3">
                   <FormControl>
                     <Checkbox
                       checked={field.value}
                       onCheckedChange={field.onChange}
+                      className="mt-1"
                     />
                   </FormControl>
-                  <Label className="text-sm text-gray-700">
-                    I agree to be contacted via phone or email
-                  </Label>
-                  <FormMessage />
+                  <div className="space-y-1 leading-none">
+                    <Label className="text-sm text-gray-700">
+                      I agree to be contacted via phone or email
+                    </Label>
+                    <FormMessage />
+                  </div>
                 </FormItem>
               )}
             />
 
-            <Button type="submit" className="w-full text-white text-base">
+            {/* Submit Button */}
+            <Button
+              type="submit"
+              className="w-full rounded-full text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 transition-all duration-300 text-base shadow-sm"
+            >
               Submit
             </Button>
           </form>
         </Form>
-      </div>
+      </motion.div>
     </section>
   );
 }

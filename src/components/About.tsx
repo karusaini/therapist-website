@@ -26,7 +26,7 @@ export default function About() {
           <Card className="overflow-hidden border-none shadow-xl rounded-2xl">
             <div className="relative w-full aspect-[4/5]">
               <Image
-                src="/dr-serenaa.png"
+                src="/dr-serena.webp"
                 alt="Dr. Serena Blake"
                 fill
                 className="object-cover"
