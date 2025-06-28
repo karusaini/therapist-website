@@ -1,10 +1,9 @@
-// app/services/[slug]/page.tsx
-
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 
+// ✅ Type definition
 type Service = {
   slug: string;
   title: string;
@@ -12,6 +11,7 @@ type Service = {
   image: string;
 };
 
+// ✅ Static array
 const services: Service[] = [
   {
     slug: "anxiety",
@@ -36,12 +36,14 @@ const services: Service[] = [
   },
 ];
 
+// ✅ Required by Next.js to pre-generate static routes
 export async function generateStaticParams() {
   return services.map((service) => ({
     slug: service.slug,
   }));
 }
 
+// ✅ SEO metadata
 export async function generateMetadata({
   params,
 }: {
@@ -56,8 +58,14 @@ export async function generateMetadata({
   };
 }
 
-export default function ServicePage({ params }: { params: { slug: string } }) {
+// ✅ Main Page — Must be an async function (to match dynamic route behavior)
+export default async function ServicePage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const service = services.find((s) => s.slug === params.slug);
+
   if (!service) return notFound();
 
   return (
