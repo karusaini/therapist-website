@@ -1,11 +1,18 @@
 // src/app/services/[slug]/page.tsx
+
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 
-// Dummy data
-const services = [
+type Service = {
+  slug: string;
+  title: string;
+  description: string;
+  image: string;
+};
+
+const services: Service[] = [
   {
     slug: "anxiety",
     title: "Anxiety & Stress Management",
@@ -29,17 +36,17 @@ const services = [
   },
 ];
 
-// ✅ STATIC PARAMS FOR BUILD
-export function generateStaticParams() {
+// ✅ Must be async
+export async function generateStaticParams() {
   return services.map((service) => ({ slug: service.slug }));
 }
 
-// ✅ SEO METADATA
-export function generateMetadata({
+// ✅ Must be async
+export async function generateMetadata({
   params,
 }: {
   params: { slug: string };
-}): Metadata {
+}): Promise<Metadata> {
   const service = services.find((s) => s.slug === params.slug);
   return {
     title: service ? `${service.title} | Dr. Blake` : "Service Not Found",
@@ -47,8 +54,12 @@ export function generateMetadata({
   };
 }
 
-// ✅ ✅ MAIN COMPONENT — NOT async ❌
-export default function ServicePage({ params }: { params: { slug: string } }) {
+// ✅ Page Component — async is allowed
+export default async function ServicePage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const service = services.find((s) => s.slug === params.slug);
   if (!service) return notFound();
 
