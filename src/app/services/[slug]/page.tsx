@@ -34,7 +34,7 @@ const services: Service[] = [
   },
 ];
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
   return services.map((service) => ({ slug: service.slug }));
 }
 
