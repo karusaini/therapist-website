@@ -1,5 +1,3 @@
-// src/app/services/[slug]/page.tsx
-
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -36,12 +34,10 @@ const services: Service[] = [
   },
 ];
 
-// ✅ Must be async
 export async function generateStaticParams() {
   return services.map((service) => ({ slug: service.slug }));
 }
 
-// ✅ Must be async
 export async function generateMetadata({
   params,
 }: {
@@ -63,9 +59,9 @@ export default async function ServicePage({
   if (!service) return notFound();
 
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white min-h-screen flex items-center justify-center">
+    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-blue-50 min-h-screen flex items-center justify-center">
       <div className="max-w-2xl w-full text-center">
-        <nav className="text-sm text-gray-600 mb-6">
+        <nav className="text-sm text-gray-500 mb-6">
           <Link href="/" className="hover:underline">
             Home
           </Link>{" "}
@@ -73,10 +69,10 @@ export default async function ServicePage({
           <Link href="/#services" className="hover:underline">
             Services
           </Link>{" "}
-          / <span className="text-gray-800 font-medium">{service.title}</span>
+          / <span className="text-gray-700 font-medium">{service.title}</span>
         </nav>
 
-        <div className="relative w-full h-64 sm:h-96 rounded-2xl overflow-hidden shadow-lg mx-auto mb-8">
+        <div className="relative w-full h-64 sm:h-96 rounded-2xl overflow-hidden shadow-md mx-auto mb-8">
           <Image
             src={service.image}
             alt={service.title}
@@ -85,15 +81,29 @@ export default async function ServicePage({
           />
         </div>
 
-        <h1 className="text-3xl sm:text-4xl font-serif font-bold text-gray-900 mb-4">
+        <h1 className="text-3xl sm:text-4xl font-serif font-bold text-blue-900 mb-4">
           {service.title}
         </h1>
-        <p className="text-lg text-gray-700 leading-relaxed mb-8">
+        <p className="text-lg text-gray-700 leading-relaxed mb-10">
           {service.description}
         </p>
 
+        <div className="border-t border-blue-100 pt-10 mb-12 text-center">
+          <h2 className="text-xl font-semibold text-blue-800 mb-4">
+            Session Fees
+          </h2>
+          <ul className="text-gray-700 text-base space-y-2 inline-block text-left">
+            <li>
+              <strong>$200</strong> / individual session
+            </li>
+            <li>
+              <strong>$240</strong> / couples session
+            </li>
+          </ul>
+        </div>
+
         <Link href="/#services">
-          <button className="px-6 py-2 rounded-full text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 transition-colors shadow-md">
+          <button className="px-6 py-2 rounded-full text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-300 shadow-md cursor-pointer">
             ← Back to Services
           </button>
         </Link>

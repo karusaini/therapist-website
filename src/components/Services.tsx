@@ -16,7 +16,7 @@ const services = [
   {
     title: "Anxiety & Stress Management",
     description:
-      "Learn to manage overwhelming thoughts, reduce daily stress, and feel more in control. Dr. Blake uses mindfulness and evidence-based therapy to help you create calm and clarity.",
+      "Learn to manage overwhelming thoughts, reduce stress, and feel more in control. Dr. Blake uses mindfulness and evidence-based therapy to help you create calm and clarity.",
     image: "/services/anxiety.jpg",
     icon: anxietyIcon,
     lucide: BrainCog,
@@ -44,13 +44,17 @@ const services = [
 
 export default function Services() {
   return (
-    <section
+    <motion.section
       id="services"
-      className="bg-gradient-to-b from-white to-gray-50 py-24 px-4 sm:px-6 lg:px-8"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 1.2, ease: "easeOut" }}
+      viewport={{ once: true }}
+      className="bg-gradient-to-b from-white via-blue-50 to-blue-100 py-24 px-4 sm:px-6 lg:px-8"
     >
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl sm:text-4xl font-serif font-bold text-center text-gray-900 mb-14">
-          How I Can Help
+        <h2 className="text-3xl sm:text-4xl font-serif font-bold text-center text-blue-900 mb-14">
+          How I Can Help You Heal
         </h2>
 
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
@@ -64,7 +68,7 @@ export default function Services() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.15, duration: 0.5 }}
               >
-                <Card className="rounded-2xl border-none shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col overflow-hidden hover:scale-[1.02]">
+                <Card className="rounded-2xl border border-blue-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden hover:scale-[1.02] bg-white">
                   <div className="relative w-full h-48">
                     <Image
                       src={service.image}
@@ -75,7 +79,7 @@ export default function Services() {
                     />
                   </div>
 
-                  <div className="w-20 h-20 mx-auto -mt-10 z-10 relative bg-white rounded-full shadow-lg flex items-center justify-center">
+                  <div className="w-20 h-20 mx-auto -mt-10 z-10 relative bg-white rounded-full shadow-md flex items-center justify-center">
                     {service.icon ? (
                       <Lottie
                         animationData={service.icon}
@@ -83,18 +87,18 @@ export default function Services() {
                         className="w-12 h-12"
                       />
                     ) : (
-                      <LucideIcon className="w-8 h-8 text-indigo-600" />
+                      <LucideIcon className="w-8 h-8 text-blue-600" />
                     )}
                   </div>
 
                   <CardHeader className="text-center mt-4">
-                    <CardTitle className="text-xl text-gray-900">
+                    <CardTitle className="text-xl font-semibold text-gray-900">
                       {service.title}
                     </CardTitle>
                   </CardHeader>
 
-                  <CardContent className="flex flex-col flex-1 justify-between text-center">
-                    <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                  <CardContent className="flex flex-col flex-1 justify-between text-center px-6 pb-6">
+                    <p className="text-gray-700 text-sm leading-relaxed mb-6">
                       {service.description}
                     </p>
 
@@ -102,10 +106,7 @@ export default function Services() {
                       href={`/services/${service.slug}`}
                       className="mx-auto"
                     >
-                      <Button
-                        variant="outline"
-                        className="rounded-full px-6 py-2 text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 transition-colors duration-300 shadow-md cursor-pointer"
-                      >
+                      <Button className="rounded-full px-6 py-2 text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-300 shadow-md cursor-pointer">
                         Learn More
                       </Button>
                     </Link>
@@ -116,6 +117,6 @@ export default function Services() {
           })}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

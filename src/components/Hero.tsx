@@ -9,31 +9,29 @@ import { Link as ScrollLink } from "react-scroll";
 
 export default function Hero() {
   return (
-    <section className="relative h-screen flex flex-col justify-center items-center text-white pt-16 overflow-hidden">
-      {/* Background Image */}
+    <section className="relative h-screen flex flex-col justify-center items-center pt-16 overflow-hidden">
       <div className="absolute inset-0">
         <Image
-          src="/hero-bg.jpg"
+          src="/hero-bg.png"
           alt="Therapy background"
           fill
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-blue-900/40 backdrop-blur-sm" />
       </div>
 
-      {/* Hero Content */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2 }}
-        className="relative z-10 max-w-3xl px-6 text-center"
+        className="relative z-10 max-w-3xl px-6 text-center text-white"
       >
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 1 }}
-          className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold mb-6 leading-tight"
+          className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold mb-6 leading-tight tracking-tight text-white drop-shadow"
         >
           Compassionate Therapy with Dr. Serena Blake
         </motion.h1>
@@ -42,7 +40,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.8 }}
-          className="text-base sm:text-lg md:text-xl mb-8 font-sans text-white/90"
+          className="text-base sm:text-lg md:text-xl mb-8 text-white/90"
         >
           Heal. Grow. Thrive. Personalized support—online or in‑person.
         </motion.p>
@@ -57,14 +55,18 @@ export default function Hero() {
             whileTap={{ scale: 0.97 }}
             transition={{ type: "spring", stiffness: 300, damping: 18 }}
           >
-            <Button className="relative inline-flex items-center justify-center px-6 py-3 sm:text-lg text-base font-semibold text-white rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 transition-colors duration-300 cursor-pointer">
-              Book a Free Consult
-            </Button>
+            <ScrollLink to="contact" smooth duration={600}>
+              <Button
+                aria-label="Book a free consultation"
+                className="px-6 py-3 sm:text-lg text-base font-semibold rounded-full bg-blue-600 hover:bg-blue-700 text-white shadow-md transition cursor-pointer"
+              >
+                Book a Free Consultation
+              </Button>
+            </ScrollLink>
           </motion.div>
         </motion.div>
       </motion.div>
 
-      {/* Lottie Scroll Down */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

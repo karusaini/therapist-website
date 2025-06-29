@@ -57,32 +57,36 @@ export default function ContactForm() {
   return (
     <section
       id="contact"
-      className="bg-gradient-to-b from-white to-gray-50 py-24 px-4 sm:px-6 lg:px-8"
+      className="bg-gradient-to-b from-white to-blue-50 py-24 px-4 sm:px-6 lg:px-8"
     >
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="max-w-2xl mx-auto bg-white rounded-2xl shadow-md p-8 sm:p-10 border border-gray-200"
+        className="max-w-2xl mx-auto bg-white rounded-3xl shadow-lg p-8 sm:p-10 border border-blue-100"
       >
-        <h2 className="text-3xl sm:text-4xl font-serif font-bold text-center text-gray-900 mb-10">
+        <h2 className="text-3xl sm:text-4xl font-serif font-bold text-center text-blue-900 mb-10">
           Book a Free Consultation
         </h2>
 
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-6 text-gray-800"
+            className="space-y-6 text-blue-900"
           >
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <Label className="text-base">Name</Label>
+                  <Label className="text-base">Full Name</Label>
                   <FormControl>
-                    <Input placeholder="Your full name" {...field} />
+                    <Input
+                      placeholder="Your full name"
+                      className="rounded-xl border-blue-200 focus:ring-blue-300"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -94,9 +98,13 @@ export default function ContactForm() {
               name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <Label className="text-base">Phone</Label>
+                  <Label className="text-base">Phone Number</Label>
                   <FormControl>
-                    <Input placeholder="(123) 456-7890" {...field} />
+                    <Input
+                      placeholder="(123) 456-7890"
+                      className="rounded-xl border-blue-200 focus:ring-blue-300"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -108,9 +116,13 @@ export default function ContactForm() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <Label className="text-base">Email</Label>
+                  <Label className="text-base">Email Address</Label>
                   <FormControl>
-                    <Input placeholder="you@example.com" {...field} />
+                    <Input
+                      placeholder="you@example.com"
+                      className="rounded-xl border-blue-200 focus:ring-blue-300"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -126,7 +138,7 @@ export default function ContactForm() {
                   <FormControl>
                     <Textarea
                       placeholder="Briefly describe your concerns or goals"
-                      className="min-h-[100px]"
+                      className="min-h-[100px] rounded-xl border-blue-200 focus:ring-blue-300"
                       {...field}
                     />
                   </FormControl>
@@ -145,7 +157,8 @@ export default function ContactForm() {
                   </Label>
                   <FormControl>
                     <Input
-                      placeholder="e.g., afternoons after 2pm"
+                      placeholder="e.g., mornings before 11am"
+                      className="rounded-xl border-blue-200 focus:ring-blue-300"
                       {...field}
                     />
                   </FormControl>
@@ -167,8 +180,8 @@ export default function ContactForm() {
                     />
                   </FormControl>
                   <div className="space-y-1 leading-none">
-                    <Label className="text-sm text-gray-700">
-                      I agree to be contacted via phone or email
+                    <Label className="text-sm text-blue-800">
+                      I agree to be contacted via phone or email.
                     </Label>
                     <FormMessage />
                   </div>
@@ -178,9 +191,9 @@ export default function ContactForm() {
 
             <Button
               type="submit"
-              className="w-full rounded-full text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 transition-all duration-300 text-base shadow-sm cursor-pointer"
+              className="w-full rounded-full text-white bg-blue-600 hover:bg-blue-700  text-base shadow-md py-2.5 cursor-pointer"
             >
-              Submit
+              Send Message
             </Button>
           </form>
         </Form>
