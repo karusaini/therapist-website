@@ -3,6 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 
+interface ServicePageProps {
+  params: Promise<{ slug: string }>;
+}
+
 type Service = {
   slug: string;
   title: string;
@@ -41,21 +45,19 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const service = services.find((s) => s.slug === params.slug);
+  const { slug } = await params;
+  const service = services.find((s) => s.slug === slug);
   return {
     title: service ? `${service.title} | Dr. Blake` : "Service Not Found",
     description: service?.description ?? "Explore our therapy services.",
   };
 }
 
-export default async function ServicePage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const service = services.find((s) => s.slug === params.slug);
+export default async function ServicePage({ params }: ServicePageProps) {
+  const { slug } = await params;
+  const service = services.find((s) => s.slug === slug);
   if (!service) return notFound();
 
   return (
