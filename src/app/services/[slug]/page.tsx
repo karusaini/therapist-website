@@ -4,15 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 
-// Service type
-type Service = {
-  slug: string;
-  title: string;
-  description: string;
-  image: string;
-};
-
-const services: Service[] = [
+// Dummy data
+const services = [
   {
     slug: "anxiety",
     title: "Anxiety & Stress Management",
@@ -36,19 +29,17 @@ const services: Service[] = [
   },
 ];
 
-// ✅ Required for static generation
-export async function generateStaticParams() {
-  return services.map((service) => ({
-    slug: service.slug,
-  }));
+// ✅ STATIC PARAMS FOR BUILD
+export function generateStaticParams() {
+  return services.map((service) => ({ slug: service.slug }));
 }
 
-// ✅ SEO metadata
-export async function generateMetadata({
+// ✅ SEO METADATA
+export function generateMetadata({
   params,
 }: {
   params: { slug: string };
-}): Promise<Metadata> {
+}): Metadata {
   const service = services.find((s) => s.slug === params.slug);
   return {
     title: service ? `${service.title} | Dr. Blake` : "Service Not Found",
@@ -56,12 +47,8 @@ export async function generateMetadata({
   };
 }
 
-// ✅ Async is okay here in app router
-export default async function ServicePage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+// ✅ ✅ MAIN COMPONENT — NOT async ❌
+export default function ServicePage({ params }: { params: { slug: string } }) {
   const service = services.find((s) => s.slug === params.slug);
   if (!service) return notFound();
 
