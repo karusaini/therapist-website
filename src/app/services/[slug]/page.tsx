@@ -1,15 +1,18 @@
+// src/app/services/[slug]/page.tsx
+
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 
-type PageProps = {
-  params: {
-    slug: string;
-  };
+type Service = {
+  slug: string;
+  title: string;
+  description: string;
+  image: string;
 };
 
-const services = [
+const services: Service[] = [
   {
     slug: "anxiety",
     title: "Anxiety & Stress Management",
@@ -33,13 +36,17 @@ const services = [
   },
 ];
 
+// ✅ Must be async
 export async function generateStaticParams() {
-  return services.map((s) => ({ slug: s.slug }));
+  return services.map((service) => ({ slug: service.slug }));
 }
 
+// ✅ Must be async
 export async function generateMetadata({
   params,
-}: PageProps): Promise<Metadata> {
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
   const service = services.find((s) => s.slug === params.slug);
   return {
     title: service ? `${service.title} | Dr. Blake` : "Service Not Found",
@@ -47,23 +54,49 @@ export async function generateMetadata({
   };
 }
 
-export default async function ServicePage({ params }: PageProps) {
+export default async function ServicePage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const service = services.find((s) => s.slug === params.slug);
   if (!service) return notFound();
 
   return (
-    <section className="py-24 px-4">
-      <div className="max-w-2xl mx-auto text-center">
-        <h1 className="text-3xl font-bold">{service.title}</h1>
-        <p className="mt-4">{service.description}</p>
-        <Image
-          src={service.image}
-          alt={service.title}
-          width={600}
-          height={300}
-          className="my-6"
-        />
-        <Link href="/#services">← Back to Services</Link>
+    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white min-h-screen flex items-center justify-center">
+      <div className="max-w-2xl w-full text-center">
+        <nav className="text-sm text-gray-600 mb-6">
+          <Link href="/" className="hover:underline">
+            Home
+          </Link>{" "}
+          /{" "}
+          <Link href="/#services" className="hover:underline">
+            Services
+          </Link>{" "}
+          / <span className="text-gray-800 font-medium">{service.title}</span>
+        </nav>
+
+        <div className="relative w-full h-64 sm:h-96 rounded-2xl overflow-hidden shadow-lg mx-auto mb-8">
+          <Image
+            src={service.image}
+            alt={service.title}
+            fill
+            className="object-cover"
+          />
+        </div>
+
+        <h1 className="text-3xl sm:text-4xl font-serif font-bold text-gray-900 mb-4">
+          {service.title}
+        </h1>
+        <p className="text-lg text-gray-700 leading-relaxed mb-8">
+          {service.description}
+        </p>
+
+        <Link href="/#services">
+          <button className="px-6 py-2 rounded-full text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 transition-colors shadow-md">
+            ← Back to Services
+          </button>
+        </Link>
       </div>
     </section>
   );

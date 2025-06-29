@@ -10,10 +10,7 @@ import { motion } from "framer-motion";
 
 export default function FAQ() {
   return (
-    <section
-      id="faq"
-      className="bg-gradient-to-b from-gray-50 to-white py-24 px-4 sm:px-6 lg:px-8"
-    >
+    <section id="faq" className="bg-gray-50 py-24 px-4 sm:px-6 lg:px-8">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}

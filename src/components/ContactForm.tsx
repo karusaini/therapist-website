@@ -16,8 +16,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { motion } from "framer-motion";
+import { toast } from "sonner";
 
-// Schema
 const formSchema = z.object({
   name: z.string().min(2, "Name is required"),
   phone: z.string().min(10, "Phone is required"),
@@ -42,9 +42,16 @@ export default function ContactForm() {
     },
   });
 
-  function onSubmit(values: unknown) {
+  async function onSubmit(values: unknown) {
     console.log(values);
-    alert("Form submitted successfully!");
+
+    await toast.promise(new Promise((resolve) => setTimeout(resolve, 1000)), {
+      loading: "Sending your message...",
+      success: "Form submitted successfully!",
+      error: "Something went wrong.",
+    });
+
+    form.reset();
   }
 
   return (
@@ -68,7 +75,6 @@ export default function ContactForm() {
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-6 text-gray-800"
           >
-            {/* Name */}
             <FormField
               control={form.control}
               name="name"
@@ -83,7 +89,6 @@ export default function ContactForm() {
               )}
             />
 
-            {/* Phone */}
             <FormField
               control={form.control}
               name="phone"
@@ -98,7 +103,6 @@ export default function ContactForm() {
               )}
             />
 
-            {/* Email */}
             <FormField
               control={form.control}
               name="email"
@@ -113,7 +117,6 @@ export default function ContactForm() {
               )}
             />
 
-            {/* Message */}
             <FormField
               control={form.control}
               name="message"
@@ -132,7 +135,6 @@ export default function ContactForm() {
               )}
             />
 
-            {/* Preferred Time */}
             <FormField
               control={form.control}
               name="time"
@@ -152,7 +154,6 @@ export default function ContactForm() {
               )}
             />
 
-            {/* Consent */}
             <FormField
               control={form.control}
               name="consent"
@@ -175,10 +176,9 @@ export default function ContactForm() {
               )}
             />
 
-            {/* Submit Button */}
             <Button
               type="submit"
-              className="w-full rounded-full text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 transition-all duration-300 text-base shadow-sm"
+              className="w-full rounded-full text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 transition-all duration-300 text-base shadow-sm cursor-pointer"
             >
               Submit
             </Button>
