@@ -23,6 +23,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+      <head>
+        {/* Manual favicon link to ensure it works in all tabs */}
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+      </head>
       <body className="bg-white text-gray-900">
         {children}
         <Toaster position="top-center" richColors />
