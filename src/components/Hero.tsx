@@ -58,7 +58,7 @@ export default function Hero() {
             <ScrollLink to="contact" smooth duration={600}>
               <Button
                 aria-label="Book a free consultation"
-                className="px-6 py-3 sm:text-lg text-base font-semibold rounded-full bg-blue-600 hover:bg-blue-700 text-white shadow-md transition cursor-pointer"
+                className="px-6 py-6 sm:text-lg text-base font-semibold rounded-full bg-blue-600 hover:bg-blue-700 text-white shadow-md transition cursor-pointer"
               >
                 Book a Free Consultation
               </Button>

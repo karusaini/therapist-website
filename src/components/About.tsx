@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import {
   ShieldCheck,
@@ -29,17 +28,15 @@ export default function About() {
           viewport={{ once: false, amount: 0.4 }}
           transition={{ duration: 1, ease: "easeOut" }}
         >
-          <Card className="overflow-hidden border-none shadow-xl rounded-2xl">
-            <div className="relative w-full aspect-[4/5]">
-              <Image
-                src="/dr-serena.webp"
-                alt="Dr. Serena Blake"
-                fill
-                className="object-cover"
-                priority
-              />
-            </div>
-          </Card>
+          <div className="relative w-full aspect-[4/5]">
+            <Image
+              src="/dr-serena.webp"
+              alt="Dr. Serena Blake"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
         </motion.div>
 
         {/* Text */}

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Lottie from "lottie-react";
 import { motion } from "framer-motion";
@@ -68,50 +68,45 @@ export default function Services() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.15, duration: 0.5 }}
               >
-                <Card className="rounded-2xl border border-blue-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden hover:scale-[1.02] bg-white">
-                  <div className="relative w-full h-48">
-                    <Image
-                      src={service.image}
-                      alt={service.title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 33vw"
+                <div className="relative w-full h-48">
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
+
+                <div className="w-20 h-20 mx-auto -mt-10 z-10 relative bg-white rounded-full shadow-md flex items-center justify-center">
+                  {service.icon ? (
+                    <Lottie
+                      animationData={service.icon}
+                      loop
+                      className="w-12 h-12"
                     />
-                  </div>
+                  ) : (
+                    <LucideIcon className="w-8 h-8 text-blue-600" />
+                  )}
+                </div>
 
-                  <div className="w-20 h-20 mx-auto -mt-10 z-10 relative bg-white rounded-full shadow-md flex items-center justify-center">
-                    {service.icon ? (
-                      <Lottie
-                        animationData={service.icon}
-                        loop
-                        className="w-12 h-12"
-                      />
-                    ) : (
-                      <LucideIcon className="w-8 h-8 text-blue-600" />
-                    )}
-                  </div>
+                <CardHeader className="text-center mt-4">
+                  <CardTitle className="text-xl font-semibold text-gray-900">
+                    {service.title}
+                  </CardTitle>
+                </CardHeader>
 
-                  <CardHeader className="text-center mt-4">
-                    <CardTitle className="text-xl font-semibold text-gray-900">
-                      {service.title}
-                    </CardTitle>
-                  </CardHeader>
+                <CardContent className="flex flex-col flex-1 justify-between text-center px-6 pb-6">
+                  <p className="text-gray-700 text-sm leading-relaxed mb-6">
+                    {service.description}
+                  </p>
 
-                  <CardContent className="flex flex-col flex-1 justify-between text-center px-6 pb-6">
-                    <p className="text-gray-700 text-sm leading-relaxed mb-6">
-                      {service.description}
-                    </p>
-
-                    <Link
-                      href={`/services/${service.slug}`}
-                      className="mx-auto"
-                    >
-                      <Button className="rounded-full px-6 py-2 text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-300 shadow-md cursor-pointer">
-                        Learn More
-                      </Button>
-                    </Link>
-                  </CardContent>
-                </Card>
+                  <Link href={`/services/${service.slug}`} className="mx-auto">
+                    <Button className="rounded-full px-6 py-6 text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-300 shadow-md cursor-pointer">
+                      Learn More
+                    </Button>
+                  </Link>
+                </CardContent>
               </motion.div>
             );
           })}

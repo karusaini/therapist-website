@@ -40,7 +40,7 @@ export default function FAQ() {
                 value={`q${i}`}
                 className="bg-white rounded-xl border border-blue-100 shadow-sm"
               >
-                <AccordionTrigger className="text-base sm:text-lg text-left text-blue-900 px-5 py-4 hover:bg-blue-50 transition-colors font-medium">
+                <AccordionTrigger className="text-base sm:text-lg text-left text-blue-900 px-5 py-4 hover:bg-blue-50 transition-colors font-medium flex items-center justify-between gap-2">
                   {item.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-blue-800 text-sm px-5 pb-5 pt-1 leading-relaxed">
@@ -60,7 +60,7 @@ export default function FAQ() {
             Reach out directly and I’ll be happy to guide you.
           </p>
           <Link href="/contact">
-            <button className="px-5 py-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white transition shadow cursor-pointer">
+            <button className="px-5 py-3  rounded-full bg-blue-600 hover:bg-blue-700 text-white transition shadow cursor-pointer">
               Contact Dr. Blake
             </button>
           </Link>

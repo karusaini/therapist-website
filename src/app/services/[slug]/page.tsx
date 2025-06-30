@@ -105,7 +105,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
         </div>
 
         <Link href="/#services">
-          <button className="px-6 py-2 rounded-full text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-300 shadow-md cursor-pointer">
+          <button className="px-6 py-4 rounded-full text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-300 shadow-md cursor-pointer">
             ← Back to Services
           </button>
         </Link>
