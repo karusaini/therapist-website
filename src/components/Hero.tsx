@@ -42,7 +42,7 @@ export default function Hero() {
           transition={{ delay: 0.4, duration: 0.8 }}
           className="text-base sm:text-lg md:text-xl mb-8 text-white/90"
         >
-          Heal. Grow. Thrive. Personalized support—online or in‑person.
+          Heal. Grow. Thrive. Personalized support online or in‑person.
         </motion.p>
 
         <motion.div
