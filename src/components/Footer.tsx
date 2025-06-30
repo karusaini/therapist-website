@@ -6,8 +6,9 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="bg-blue-900 text-white py-10 px-4 sm:px-6 lg:px-12">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
-        <div>
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
+        {/* Column 1 */}
+        <div className="flex flex-col items-center md:items-start mb-6 md:mb-0">
           <h3 className="text-xl font-serif font-bold mb-2">
             Dr. Serena Blake
           </h3>
@@ -19,7 +20,8 @@ export default function Footer() {
           </p>
         </div>
 
-        <div className="space-y-3 text-sm">
+        {/* Column 2 */}
+        <div className="space-y-3 text-sm flex flex-col items-center md:items-start mb-6 md:mb-0">
           <div className="flex items-center gap-2">
             <Phone className="w-4 h-4 text-blue-200" />
             <a href="tel:+1234567890" className="hover:underline">
@@ -41,7 +43,8 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4">
+        {/* Column 3 */}
+        <div className="flex flex-col gap-4 items-center md:items-start">
           <div className="flex flex-col gap-2 text-sm">
             <Link href="#about" className="hover:underline text-white/90">
               About
@@ -64,6 +67,7 @@ export default function Footer() {
         </div>
       </div>
 
+      {/* Bottom */}
       <div className="border-t border-white/10 mt-10 pt-6 text-xs text-white/60 text-center">
         © {new Date().getFullYear()} Dr. Serena Blake. All rights reserved.
       </div>

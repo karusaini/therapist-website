@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <body className="bg-white text-gray-900">
         <Navbar />
-        {children}
+        <main>{children}</main>
         <Footer />
         <Toaster position="top-center" richColors />
       </body>

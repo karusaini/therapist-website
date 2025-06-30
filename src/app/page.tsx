@@ -6,12 +6,12 @@ import ContactForm from "@/components/ContactForm";
 
 export default function Home() {
   return (
-    <main>
+    <>
       <Hero />
       <About />
       <Services />
       <FAQ />
       <ContactForm />
-    </main>
+    </>
   );
 }
